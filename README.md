@@ -31,19 +31,35 @@
 
 ## Objective
 
-The project leverages LLaMA 3, a cutting-edge Large Language Model (LLM), for sentiment analysis on climate change discussions on social media. It categorizes sentiments as positive, neutral, or negative, offering insights for decision-making in environmental campaigns and corporate strategies.
+The project aims to leverage LLaMA 3, a state-of-the-art Large Language Model (LLM), for sentiment analysis of tweets discussing climate change. Tweets are categorized into positive, neutral, or negative sentiments. Insights derived from this analysis will aid in understanding public opinion, identifying key trends, and supporting decision-making for environmental campaigns, policymaking, and corporate strategies.
+
+## Key Questions
+
+1 What are the dominant sentiments expressed in daily climate change discussions on Twitter?
+2 How do sentiments evolve over time, and what events influence these changes?
+3 What factors (e.g., hashtags, keywords, influencers) correlate with positive or negative sentiments?
+4 Can actionable insights be drawn for stakeholders from this sentiment data?
+
+# Dataset Overview
+
+1 Source: Daily tweets from January 1, 2022, to July 19, 2022, containing the term "Climate Change."
+2 Columns: Tweet text, user metadata, engagement metrics (likes, retweets), timestamps, etc.
+3 Volume: ~500K tweets.
+4 Preprocessing:
+5 Remove duplicates, clean links/hashtags, handle missing values, and tokenize the text.
+
 
 ## Visualizations
 
 1. Word Cloud: General Clean Text
 The word cloud highlights the most common words used in the dataset, providing a quick visual representation of frequent topics related to climate change.
 
-<div align="center"> <img src="/mnt/data/{49C73A6A-548D-4435-8C60-E85DFAC2590A}.png" alt="Word Cloud" width="600" /> </div>
+<div align="center"> <img src="https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis/blob/main/img/Captura%20de%20tela%202024-11-26%20145522.png?raw=true" alt="Distribution of Sentiments" width="600" /> </div>
 
 3. Top 20 Most Common Tokens
 The bar chart shows the frequency of the top 20 tokens in the dataset.
 
-<div align="center"> <img src="/mnt/data/{9DAE142B-3028-42E1-B4AC-BCE955A853BC}.png" alt="Top Tokens" width="600" /> </div>
+<div align="center"> <img src="https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis/blob/main/img/Captura%20de%20tela%202024-11-26%20145533.png?raw=true" alt="Top Tokens" width="600" /> </div>
 
 ## HuggingFace CLI Login
 
@@ -54,6 +70,30 @@ huggingface-cli login
 ```
 
 This allows access to pre-trained models like meta-llama/Llama-3.1-8B-Instruct for text processing.
+
+## Device Selection: GPU or CPU
+The following code dynamically checks the availability of a GPU and selects it for processing if available. Otherwise, it defaults to using the CPU:
+
+```bash
+# Check if a GPU is available
+# If a GPU is available, it will use "cuda"; otherwise, it will default to "cpu"
+device = "cuda" if torch.cuda.is_available() else "cpu"
+```
+
+# Explanation
+
+- Purpose: Efficiently utilizes hardware resources for faster model execution.
+torch.cuda.is_available(): Checks if a CUDA-enabled GPU is accessible on the system.
+
+- device Variable:
+
+* "cuda": Indicates GPU will be used for model computations.
+* "cpu": Falls back to CPU when no GPU is detected.
+
+- Why This Matters?
+
+Using a GPU can significantly speed up the execution of large models like LLaMA, especially for tasks such as text classification or generation.
+This approach ensures compatibility across various hardware setups without manual intervention.
 
 ## Model Initialization
 
@@ -200,7 +240,7 @@ The code uses %%time to display the total execution time for processing all text
 The dataset was analyzed using a zero-shot classification pipeline to determine the sentiment of each text entry. Below is a sample of the resulting classification, where the Text_Limpo column contains the preprocessed text, and the Sentiment_LLM column represents the sentiment predicted by the LLaMA 3.1 model.
 
 Sample Output
-<div align="center"> <img src="/mnt/data/{14CF2A33-F9D6-4A25-81B5-39E65ED8070D}.png" alt="Sample Classification Table" width="600" /> </div>
+<div align="center"> <img src="https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis/blob/main/img/Captura%20de%20tela%202024-11-26%20150745.png?raw=true" alt="Sample Classification Table" width="600" /> </div>
 
 ## Explanation of the Results
 
@@ -227,7 +267,7 @@ The sentiment analysis results are visualized to provide a clear understanding o
 1. Sentiment Distribution
 The bar chart below shows the distribution of sentiments classified by the model (Positive, Negative, and Neutral). The majority of the texts reflect positive sentiments towards climate change discussions.
 
-<div align="center"> <img src="/mnt/data/{1422A938-84FF-4640-BEB1-A864DFFB0767}.png" alt="Distribution of Sentiments" width="600" /> </div>
+<div align="center"> <img src="https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis/blob/main/img/Captura%20de%20tela%202024-11-26%20150822.png?raw=true" alt="Distribution of Sentiments" width="600" /> </div>
 
 2. Word Clouds
    
@@ -236,17 +276,17 @@ Word clouds are generated to highlight the most frequently used words within eac
 Positive Sentiment
 Words associated with optimism, solutions, and constructive discussions are prevalent, such as "justice," "research," "environmental," and "fossil fuels."
 
-<div align="center"> <img src="/mnt/data/{AD29E1CB-CCED-42C5-B97F-DA8247C3A8C5}.png" alt="Word Cloud - Positive Sentiment" width="600" /> </div>
+<div align="center"> <img src="https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis/blob/main/img/Captura%20de%20tela%202024-11-26%20150850.png?raw=true" alt="Word Cloud - Positive Sentiment" width="600" /> </div>
 
 Negative Sentiment
 This category reflects challenges, frustration, or criticisms, with frequent words like "worse," "fails," "propaganda," and "control."
 
-<div align="center"> <img src="/mnt/data/{5F564CD8-1F1C-49DE-87F1-FBBD05DB402A}.png" alt="Word Cloud - Negative Sentiment" width="600" /> </div>
+<div align="center"> <img src="https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis/blob/main/img/Captura%20de%20tela%202024-11-26%20150859.png?raw=true" alt="Word Cloud - Negative Sentiment" width="600" /> </div>
 
 Neutral Sentiment
 Neutral sentiments are more factual or descriptive, with words like "change," "future," "year," and "environmental."
 
-<div align="center"> <img src="/mnt/data/{64E62B83-7DA2-4671-B426-06C2F7190FB1}.png" alt="Word Cloud - Neutral Sentiment" width="600" /> </div>
+<div align="center"> <img src="https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis/blob/main/img/Captura%20de%20tela%202024-11-26%20150910.png?raw=true" alt="Word Cloud - Neutral Sentiment" width="600" /> </div>
 
 # Key Insights
 
