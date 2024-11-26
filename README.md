@@ -48,6 +48,50 @@ The project aims to leverage LLaMA 3, a state-of-the-art Large Language Model (L
 4 Preprocessing:
 5 Remove duplicates, clean links/hashtags, handle missing values, and tokenize the text.
 
+## Dataset link
+
+This dataset here
+
+Link: https://www.kaggle.com/datasets/die9origephit/climate-change-tweets/data
+
+# Accessing the Project's Notebooks
+
+The repository includes a notebook folder containing Jupyter notebooks that showcase the functionality of this project, such as data processing, sentiment analysis, and visualization.
+
+## Steps to Access the Notebooks
+
+1 Clone the Repository First, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/RafaelGallo/LLM_Llama3_1_v2_Sentiment_Analysis.git
+cd LLM_Llama3_1_v2_Sentiment_Analysis
+```
+
+2 Navigate to the notebook Folder Once inside the repository, navigate to the notebook directory where the project notebooks are stored:
+
+```bash
+cd notebook
+```
+
+3 Open the Notebooks Use your preferred method to open and run the notebooks:
+
+Using Jupyter Notebook:
+
+```bash
+jupyter notebook
+```
+
+Using JupyterLab
+
+```bash
+jupyter lab
+```
+
+4 Dependencies Ensure all required Python libraries are installed. You can install them using the requirements.txt file:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Visualizations
 
